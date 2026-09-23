@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Siete Arcontes de Teyvat | Genshin Impact</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        genshin: {
+                            gold: '#f3d267',
+                            goldDark: '#b88b20',
+                            bg: '#0a0d18',
+                            cardBg: 'rgba(18, 24, 43, 0.88)',
+                            anemo: '#52e5a9',
+                            geo: '#f8ba4b',
+                            electro: '#af6eff',
+                            dendro: '#72e043',
+                            hydro: '#4cc8ff',
+                            pyro: '#ff6633',
+                            cryo: '#99e6ff'
+                        }
+                    },
+                    fontFamily: {
+                        genshin: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #0a0d18;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(243, 210, 103, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 85% 50%, rgba(57, 190, 238, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(248, 100, 56, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .title-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .archon-card {
+            background: linear-gradient(145deg, var(--card-bg-start, rgba(23, 31, 56, 0.9)) 0%, var(--card-bg-end, rgba(12, 16, 31, 0.95)) 100%);
+            border: 1px solid var(--element-border, rgba(243, 210, 103, 0.3));
+            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .archon-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px -10px var(--element-glow, rgba(243, 210, 103, 0.35));
+            border-color: var(--element-primary, rgba(243, 210, 103, 0.8));
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.9); }
+            50% { opacity: 0.85; transform: scale(1.15); }
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d18;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b88b20;
+            border-radius: 4px;
+        }
+
+        .glass-panel {
+            background: rgba(15, 21, 39, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(243, 210, 103, 0.25);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <div id="starfield" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <nav class="sticky top-0 z-40 glass-panel border-b border-amber-500/20 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border border-amber-400 bg-gradient-to-br from-amber-400/30 to-indigo-900/80 flex items-center justify-center text-amber-300 font-bold text-xl title-font shadow-lg">
+                    ✦
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-wider text-amber-200 title-font">LOS SIETE ARCONTES</h1>
+                    <span class="text-[11px] text-amber-400/80 block tracking-widest uppercase">Genshin Impact • Deidades de Teyvat</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                <a href="#intro" class="hover:text-amber-300 transition-colors">¿Qué Son?</a>
+                <a href="#gnosis" class="hover:text-amber-300 transition-colors">La Gnosis</a>
+                <a href="#archons" class="hover:text-amber-300 transition-colors">Catálogo por Versión</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-16">
+
+        <section id="intro" class="text-center space-y-6 pt-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-xs font-semibold tracking-wider uppercase">
+                <i class="fas fa-crown text-amber-400"></i>
+                <span>Los Siete Reyes Divinos de Celestia</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-5xl font-black title-font text-white tracking-wide max-w-4xl mx-auto leading-tight">
+                Autoridad Elemental y el <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">Orden Divino de Teyvat</span>
+            </h2>
+
+            <p class="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
+                Los Arcontes son los siete dioses vencedores de la sangrienta <strong class="text-amber-300">Guerra de los Arcontes</strong> acontecida hace 2000 años. Cada uno ostenta el trono de un elemento y dirige los destinos de una de las naciones de Teyvat bajo el mandato superior de <strong class="text-amber-300">Celestia</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 text-left">
+                <!-- What are they -->
+                <div class="glass-panel p-6 rounded-2xl border border-amber-500/25 space-y-3 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl border border-amber-400/30">
+                        <i class="fas fa-chess-rook"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white title-font">¿Qué son los Arcontes?</h3>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        Son deidades supremas que poseen la autoridad de manipular libremente los elementos primordiales. Su poder divino reside en la combinación de sus facultades celestiales, la cantidad de creyentes en sus naciones y el estatus otorgado por sus Tronos Divinos en Celestia.
+                    </p>
+                </div>
+
+                <!-- Purpose & Duties -->
+                <div class="glass-panel p-6 rounded-2xl border border-amber-500/25 space-y-3 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl border border-amber-400/30">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white title-font">¿Para qué sirven en Teyvat?</h3>
+                    <ul class="text-slate-300 text-xs sm:text-sm space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong>Autoridad Elemental:</strong> Canalizan la energía cósmica y conceden Visiones a los mortales con ambiciones sobresalientes.</li>
+                        <li><strong>Escudo de la Nación:</strong> Protegen a sus reinos de cataclismos, calamidades del Abismo y dioses caídos.</li>
+                        <li><strong>Pilares Filosóficos:</strong> Encarnan los ideales supremos de Teyvat: Libertad, Contratos, Eternidad, Sabiduría, Justicia, Guerra y Amor.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="gnosis" class="glass-panel rounded-3xl p-6 sm:p-10 border border-amber-400/30 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                        <i class="fas fa-gem"></i> El Núcleo de la Divinidad
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white title-font">La Gnosis: El Canal Directo con Celestia</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        La <strong class="text-amber-300">Gnosis</strong> es un catalizador sagrado con forma de pieza de ajedrez otorgado por los Principios Celestiales a cada uno de los Siete. Otorga una fuente casi inagotable de poder elemental y la capacidad de dictar leyes universales sobre su elemento.
+                    </p>
+                    <p class="text-slate-400 text-xs leading-relaxed italic border-l-2 border-amber-400/60 pl-3">
+                        Revelaciones recientes indican que las Gnoses fueron forjadas con los restos mortales del "Tercer Descendido", motivo por el cual La Zarina de Snezhnaya ha movilizado a los Fatui para reunirlas todas.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 flex justify-center">
+                    <div class="w-full max-w-xs p-6 bg-slate-950/80 rounded-2xl border border-amber-500/30 text-center space-y-3">
+                        <div class="text-4xl text-amber-300 animate-pulse">
+                            <i class="fas fa-chess-king"></i>
+                        </div>
+                        <h4 class="text-amber-200 font-bold title-font text-sm">Resonancia Celeste</h4>
+                        <p class="text-[11px] text-slate-400">Las siete piezas de ajedrez regulan el equilibrio cósmico entre las fuerzas terrenales y el trono de Celestia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="archons" class="space-y-8">
+            <div class="text-center space-y-3">
+                <h2 class="text-xs font-bold tracking-widest text-amber-400 uppercase title-font">✦ Catálogo Divino ✦</h2>
+                <h3 class="text-3xl sm:text-4xl font-black text-white title-font">Los Arcontes por Orden de Versión</h3>
+                <p class="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto">
+                    Explora las fichas celestiales tematizadas con los colores elementales únicos de cada Arconte. Haz clic en cualquiera para abrir su lore.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <button onclick="filterArchons('all')" class="filter-btn active-filter px-4 py-2 rounded-xl text-xs font-bold transition-all border border-amber-400 bg-amber-500/20 text-amber-300">
+                    Todos (7)
+                </button>
+                <button onclick="filterArchons('anemo')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-emerald-500/30 bg-slate-900 text-emerald-300 hover:border-emerald-400">
+                    <i class="fas fa-wind mr-1"></i> Anemo
+                </button>
+                <button onclick="filterArchons('geo')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-amber-500/30 bg-slate-900 text-amber-300 hover:border-amber-400">
+                    <i class="fas fa-mountain mr-1"></i> Geo
+                </button>
+                <button onclick="filterArchons('electro')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-purple-500/30 bg-slate-900 text-purple-300 hover:border-purple-400">
+                    <i class="fas fa-bolt mr-1"></i> Electro
+                </button>
+                <button onclick="filterArchons('dendro')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-lime-500/30 bg-slate-900 text-lime-300 hover:border-lime-400">
+                    <i class="fas fa-leaf mr-1"></i> Dendro
+                </button>
+                <button onclick="filterArchons('hydro')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-sky-500/30 bg-slate-900 text-sky-300 hover:border-sky-400">
+                    <i class="fas fa-droplet mr-1"></i> Hydro
+                </button>
+                <button onclick="filterArchons('pyro')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-orange-500/30 bg-slate-900 text-orange-300 hover:border-orange-400">
+                    <i class="fas fa-fire mr-1"></i> Pyro
+                </button>
+                <button onclick="filterArchons('cryo')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all border border-cyan-500/30 bg-slate-900 text-cyan-300 hover:border-cyan-400">
+                    <i class="fas fa-snowflake mr-1"></i> Cryo
+                </button>
+            </div>
+
+            <!-- Archons Grid Container -->
+            <div id="archonGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cards will be dynamically injected with element-specific colors -->
+            </div>
+        </section>
+
+    </main>
+
+    <div id="archonModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="mContainer" class="w-full max-w-3xl rounded-3xl p-6 sm:p-8 border relative shadow-2xl overflow-y-auto max-h-[90vh] space-y-6 text-left transition-all duration-300">
+            <!-- Close Button -->
+            <button onclick="closeModal()" id="mCloseBtn" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-lg border transition-all">
+                <i class="fas fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div id="mHeader" class="flex flex-col sm:flex-row gap-6 items-center sm:items-start border-b pb-6">
+                <img id="mImage" src="" alt="Arconte" class="w-36 h-52 object-cover object-top rounded-2xl border-2 shadow-xl">
+                <div class="space-y-2 text-center sm:text-left flex-1">
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                        <span id="mVersion" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border">v1.0</span>
+                        <span id="mElement" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border">Anemo</span>
+                    </div>
+                    <h3 id="mName" class="text-3xl font-extrabold text-white title-font">Venti (Barbatos)</h3>
+                    <p id="mTitle" class="text-xs font-semibold">Dios de la Libertad • Mondstadt</p>
+                    <div class="pt-2 text-xs text-slate-300">
+                        <span class="text-slate-400">Título Divino:</span> <strong id="mRank" class="text-slate-200">El Bardo Ventoso, El Lord del Viento</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="space-y-4">
+                <div>
+                    <h4 id="mHistoryTitle" class="text-xs font-bold uppercase tracking-wider mb-1 title-font">
+                        <i class="fas fa-book-open mr-1"></i> Historia y Origen Divino
+                    </h4>
+                    <p id="mHistory" class="text-slate-300 text-xs sm:text-sm leading-relaxed"></p>
+                </div>
+
+                <div>
+                    <h4 id="mAchievementsTitle" class="text-xs font-bold uppercase tracking-wider mb-1 title-font">
+                        <i class="fas fa-trophy mr-1"></i> Principales Logros e Hitos
+                    </h4>
+                    <ul id="mAchievements" class="text-slate-300 text-xs sm:text-sm space-y-1.5 list-disc list-inside leading-relaxed"></ul>
+                </div>
+
+                <div id="mQuoteBox" class="p-4 rounded-xl border italic text-slate-300 text-xs leading-relaxed">
+                    <i class="fas fa-quote-left mr-2"></i>
+                    <span id="mQuote">"Canta conmigo las canciones del viento..."</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-amber-500/20 py-8 bg-slate-950/90 text-center text-xs text-slate-500 relative z-10 mt-16">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="title-font font-bold text-amber-300">LOS SIETE ARCONTES DE TEYVAT</p>
+            <p>Página interactiva tematizada con colores elementales para Genshin Impact®.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Starfield background generator
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 55; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            star.style.backgroundColor = Math.random() > 0.6 ? '#f3d267' : '#ffffff';
+            starfield.appendChild(star);
+        }
+
+        // Custom elemental palettes for each archon
+        const archons = [
+            {
+                id: 'venti',
+                version: 'v1.0',
+                name: 'Venti (Barbatos)',
+                godTitle: 'Dios de la Libertad',
+                nation: 'Mondstadt',
+                element: 'anemo',
+                elementName: 'Anemo',
+                primaryColor: '#52e5a9',
+                bgStart: 'rgba(27, 56, 43, 0.9)',
+                bgEnd: 'rgba(10, 24, 18, 0.95)',
+                border: 'rgba(82, 229, 169, 0.4)',
+                glow: 'rgba(82, 229, 169, 0.35)',
+                rank: 'Bardo Ventoso, El Lord del Viento',
+                image: 'images/Venti_Card.webp',
+                history: 'Barbatos nació originalmente como un pequeño espíritu del viento sin forma en medio de las tormentas de la vieja Mondstadt. Durante la rebelión contra el rey de las tormentas Decarabian, acompañó al joven bardo sin nombre. Al ascender como Arconte Anemo, adoptó la apariencia de su difunto amigo para guiar a Mondstadt hacia una era de verdadera libertad.',
+                achievements: [
+                    'Sopló vientos cálidos tan potentes que derribó y moldeó las cumbres heladas de Mondstadt para crear valles fértiles.',
+                    'Derrocó a Decarabian y disolvió el gobierno absoluto para dejar el liderazgo en manos de la gente mortal.',
+                    'Liberó a la dragona Dvalin (Stormterror) de la corrupción del Abismo tras despertar de su letargo.'
+                ],
+                quote: 'El viento puede cambiar de rumbo en cualquier momento. Algún día soplará hacia un lugar donde la libertad reine en cada rincón.'
+            },
+            {
+                id: 'zhongli',
+                version: 'v1.1',
+                name: 'Zhongli (Morax / Rex Lapis)',
+                godTitle: 'Dios de los Contratos',
+                nation: 'Liyue',
+                element: 'geo',
+                elementName: 'Geo',
+                primaryColor: '#f8ba4b',
+                bgStart: 'rgba(56, 44, 22, 0.9)',
+                bgEnd: 'rgba(23, 18, 9, 0.95)',
+                border: 'rgba(248, 186, 75, 0.4)',
+                glow: 'rgba(248, 186, 75, 0.35)',
+                rank: 'Rex Lapis, El Dios de la Guerra Primigenio',
+                image: 'images/Zhongli_Card.jpg',
+                history: 'Es la deidad más antigua de Teyvat con más de 6000 años de vida. Lideró a los Adeptus y a los hombres a través de la feroz Guerra de los Arcontes. Gobernó Liyue durante milenios bajo el título de Rex Lapis hasta que decidió probar la fuerza de la humanidad y simular su muerte para retirarse como un simple consultor de la Funeraria El Camino.',
+                achievements: [
+                    'Creó la divisa comercial universal de todo Teyvat: la Mora, utilizando el poder de su Gnosis.',
+                    'Clavó lanzas de roca gigantescas en el océano para sepultar y sellar a dioses marinos antiguos como Osial (formando el Bosque de Piedra Guyun).',
+                    'Fundó el próspero Puerto de Liyue estableciendo un sistema inmune de comercio y contratos intercontinentales.'
+                ],
+                quote: 'Los contratos no se pueden romper. Aquel que viole un contrato sufrirá el castigo de las rocas.'
+            },
+            {
+                id: 'raiden',
+                version: 'v2.1',
+                name: 'Raiden Shogun (Ei / Beelzebul)',
+                godTitle: 'Diosa de la Eternidad',
+                nation: 'Inazuma',
+                element: 'electro',
+                elementName: 'Electro',
+                primaryColor: '#af6eff',
+                bgStart: 'rgba(41, 18, 68, 0.9)',
+                bgEnd: 'rgba(18, 8, 30, 0.95)',
+                border: 'rgba(175, 110, 255, 0.4)',
+                glow: 'rgba(175, 110, 255, 0.35)',
+                rank: 'La Suprema Narukami Ogosho, Shogun de Inazuma',
+                image: 'images/Raiden_Card.png',
+                history: 'Ei era la sombra guerrera de su hermana gemela Makoto (la primera Arconte Electro). Tras perder a Makoto en el cataclismo de Khaenri\'ah hace 500 años, Ei asumió la divinidad suprema y diseñó una marioneta biomecánica (la Shogun) para gobernar Inazuma de forma inmutable mientras meditaba en su Plano de la Eutimia.',
+                achievements: [
+                    'Cortó de un solo tajo de su técnica "Musou no Hitotachi" a la gran serpiente divina Orobashi, partiendo a la mitad la isla Yashiori.',
+                    'Perfeccionó la creación de cuerpos artificiales con conciencia propia e invulnerables al paso del tiempo.',
+                    'Abolió el Decreto de Caza de Visiones y reabrió las fronteras de Inazuma al entender el verdadero significado de los deseos humanos.'
+                ],
+                quote: 'Esta hoja guarda los anhelos de mil estrellas. Tu ambición será aplastada aquí.'
+            },
+            {
+                id: 'nahida',
+                version: 'v3.2',
+                name: 'Nahida (Buer)',
+                godTitle: 'Diosa de la Sabiduría',
+                nation: 'Sumeru',
+                element: 'dendro',
+                elementName: 'Dendro',
+                primaryColor: '#72e043',
+                bgStart: 'rgba(28, 54, 19, 0.9)',
+                bgEnd: 'rgba(12, 24, 8, 0.95)',
+                border: 'rgba(114, 224, 67, 0.4)',
+                glow: 'rgba(114, 224, 67, 0.35)',
+                rank: 'Reina Menor Kusanali, Avatara del Árbol Irminsul',
+                image: 'images/Nahida_Card.webp',
+                history: 'Surgió como la rama más pura del árbol sagrado Irminsul tras el trágico sacrificio de la Mayor Lord Rukkhadevata durante el cataclismo de hace 500 años. Aunque fue apresada durante siglos por la egoísta Academia de Sumeru, demostró ser una sabia guía conectada profundamente a la mente colectiva del mundo.',
+                achievements: [
+                    'Purificó el Irminsul eliminado los rastros del Conocimiento Prohibido que amenazaban con destruir la cordura de Teyvat.',
+                    'Frustró el plan de los Fatui para crear una deidad artificial (Scaramouche / Shouki no Kami) salvando a Sumeru.',
+                    'Liberó a la población de Sumeru del control de la Red Akasha para restaurar el aprendizaje natural e inquisitivo.'
+                ],
+                quote: 'Aprender y recordar es el regalo más hermoso que los seres vivos pueden possesser.'
+            },
+            {
+                id: 'furina',
+                version: 'v4.2',
+                name: 'Furina / Focalors',
+                godTitle: 'Diosa de la Justicia',
+                nation: 'Fontaine',
+                element: 'hydro',
+                elementName: 'Hydro',
+                primaryColor: '#4cc8ff',
+                bgStart: 'rgba(19, 47, 76, 0.9)',
+                bgEnd: 'rgba(8, 20, 33, 0.95)',
+                border: 'rgba(76, 200, 255, 0.4)',
+                glow: 'rgba(76, 200, 255, 0.35)',
+                rank: 'Ex-Arconte Hydro / La Estrella de la Ópera de Fontaine',
+                image: 'images/Furina_Card.webp',
+                history: 'Focalors separó su divinidad de su espíritu humano para engañar la profecía de Celestia sobre la destrucción de Fontaine. Creó a Furina, un ser humano mortal que representó impecablemente el rol de diosa extravagante durante 500 años mientras acumulaba energía en la Oratoria Mecánica para ejecutar el sacrificio divino definitivo.',
+                achievements: [
+                    'Engañó al Principio Celestial sacrificando la posición divina del Arconte Hydro para salvar a todo Fontaine del diluvio.',
+                    'Soportó medio milenio de sufrimiento e investigación constante bajo la presión de ser juzgada.',
+                    'Devolvió la Autoridad Elemental Hydro intacta al Dragón Soberano Neuvillette, absolviendo a los ciudadanos de su pecado original.'
+                ],
+                quote: '¡Que comience el espectáculo! He interpretado mi papel a la perfección durante quinientos años...'
+            },
+            {
+                id: 'mavuika',
+                version: 'v5.3',
+                name: 'Mavuika',
+                godTitle: 'Diosa de la Guerra',
+                nation: 'Natlan',
+                element: 'pyro',
+                elementName: 'Pyro',
+                primaryColor: '#ff6633',
+                bgStart: 'rgba(77, 24, 8, 0.9)',
+                bgEnd: 'rgba(33, 10, 3, 0.95)',
+                border: 'rgba(255, 102, 51, 0.4)',
+                glow: 'rgba(255, 102, 51, 0.35)',
+                rank: 'Arconte del Fuego Sagrado, Guía de los Seis Clanes',
+                image: 'images/Mavuika_Card.webp',
+                history: 'Mavuika nació originalmente como una guerrera mortal de las tribus de Natlan hace 500 años. Al ganar el torneo sagrado, se convirtió en Arconte Pyro. Sacrificó su primera vida para imbuir su esencia en la Flama Sagrada y renacer en la época actual para liderar a las tribus en la guerra decisiva contra la invasión del Abismo.',
+                achievements: [
+                    'Mantuvo la Flama Sagrada de Natlan ardiendo activamente durante siglos para proteger la estructura del Reino de la Noche.',
+                    'Unificó los seis clanes de Natlan bajo una misma estrategia de resistencia frente a la corrupción abismal.',
+                    'Demostró que el espíritu de un mortal entregado a su nación puede rivalizar con los campeones más temibles de Teyvat.'
+                ],
+                quote: '¡Natlan no caerá jamás mientras la llama de nuestros antepasados continúe ardiendo en el corazón de nuestros guerreros!'
+            },
+            {
+                id: 'zarina',
+                version: 'Snezhnaya',
+                name: 'La Zarina (Tsaritsa)',
+                godTitle: 'Diosa del Amor / Paz Fría',
+                nation: 'Snezhnaya',
+                element: 'cryo',
+                elementName: 'Cryo',
+                primaryColor: '#99e6ff',
+                bgStart: 'rgba(25, 51, 77, 0.9)',
+                bgEnd: 'rgba(10, 21, 33, 0.95)',
+                border: 'rgba(153, 230, 255, 0.4)',
+                glow: 'rgba(153, 230, 255, 0.35)',
+                rank: 'Líder Suprema de los Fatui',
+                image: 'images/Zarina_Card.webp',
+                history: 'Originalmente la Diosa del Amor de Teyvat. La gran tragedia de la destrucción de Khaenri\'ah hace 500 años destruyó su fe en el Orden Celestial, transformándola en una líder fría e implacable. Creó a los Fatui y movilizó a los Once Heraldos para declarar una guerra total contra Celestia.',
+                achievements: [
+                    'Reunió paulatinamente las Gnoses de las siete naciones para activar su plan supremo contra los Principios Celestiales.',
+                    'Construyó la potencia militar, científica y tecnológica más temible e imponente de todo Teyvat en Snezhnaya.',
+                    'Unió bajo su estandarte a guerreros legendarios y desterrados de todo el mundo impulsados por su visión de un nuevo orden.'
+                ],
+                quote: 'Su amor por la humanidad es tan helado que no le quedan lágrimas... quemará las viejas reglas para forjar un nuevo destino.'
+            }
+        ];
+
+        function renderArchons(data) {
+            const grid = document.getElementById('archonGrid');
+            grid.innerHTML = '';
+
+            data.forEach(archon => {
+                const card = document.createElement('div');
+                card.className = 'archon-card rounded-2xl p-5 flex flex-col justify-between cursor-pointer group relative overflow-hidden';
+                card.style.setProperty('--card-bg-start', archon.bgStart);
+                card.style.setProperty('--card-bg-end', archon.bgEnd);
+                card.style.setProperty('--element-border', archon.border);
+                card.style.setProperty('--element-glow', archon.glow);
+                card.style.setProperty('--element-primary', archon.primaryColor);
+
+                card.onclick = () => openModal(archon.id);
+
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase border" 
+                                  style="background-color: ${archon.primaryColor}22; color: ${archon.primaryColor}; border-color: ${archon.primaryColor}66;">
+                                ${archon.version}
+                            </span>
+                            <div class="text-xl" style="color: ${archon.primaryColor};">
+                                <i class="fas ${getElementIcon(archon.element)}"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative overflow-hidden rounded-xl h-64 bg-slate-950 border" style="border-color: ${archon.primaryColor}33;">
+                            <img src="${archon.image}" alt="${archon.name}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-2 left-3 right-3">
+                                <h4 class="text-lg font-bold text-white title-font">${archon.name}</h4>
+                                <span class="text-xs font-semibold block" style="color: ${archon.primaryColor};">${archon.godTitle}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-slate-300 space-y-1">
+                            <p class="flex items-center gap-1.5"><i class="fas fa-flag" style="color: ${archon.primaryColor};"></i> Nación: <strong>${archon.nation}</strong></p>
+                            <p class="line-clamp-2 text-slate-400 text-[11px] leading-relaxed pt-1">${archon.history}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 mt-4 border-t flex items-center justify-between text-xs font-bold transition-all" 
+                         style="border-color: ${archon.primaryColor}33; color: ${archon.primaryColor};">
+                        <span>Ver Lore Completo</span>
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getElementIcon(elem) {
+            switch(elem) {
+                case 'anemo': return 'fa-wind';
+                case 'geo': return 'fa-mountain';
+                case 'electro': return 'fa-bolt';
+                case 'dendro': return 'fa-leaf';
+                case 'hydro': return 'fa-droplet';
+                case 'pyro': return 'fa-fire';
+                case 'cryo': return 'fa-snowflake';
+                default: return 'fa-star';
+            }
+        }
+
+        function filterArchons(elem) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+                btn.classList.add('bg-slate-900');
+            });
+
+            event.currentTarget.classList.remove('bg-slate-900');
+            event.currentTarget.classList.add('bg-amber-500/20', 'border-amber-400', 'text-amber-300');
+
+            if (elem === 'all') {
+                renderArchons(archons);
+            } else {
+                const filtered = archons.filter(a => a.element === elem);
+                renderArchons(filtered);
+            }
+        }
+
+        function openModal(id) {
+            const archon = archons.find(a => a.id === id);
+            if (!archon) return;
+
+            const container = document.getElementById('mContainer');
+            container.style.background = `linear-gradient(145deg, ${archon.bgStart} 0%, ${archon.bgEnd} 100%)`;
+            container.style.borderColor = archon.primaryColor;
+            container.style.boxShadow = `0 25px 50px -12px ${archon.glow}`;
+
+            const img = document.getElementById('mImage');
+            img.src = archon.image;
+            img.style.borderColor = archon.primaryColor;
+
+            const closeBtn = document.getElementById('mCloseBtn');
+            closeBtn.style.color = archon.primaryColor;
+            closeBtn.style.borderColor = `${archon.primaryColor}55`;
+
+            const versionBadge = document.getElementById('mVersion');
+            versionBadge.innerText = archon.version;
+            versionBadge.style.backgroundColor = `${archon.primaryColor}22`;
+            versionBadge.style.color = archon.primaryColor;
+            versionBadge.style.borderColor = `${archon.primaryColor}66`;
+
+            const elemBadge = document.getElementById('mElement');
+            elemBadge.innerText = archon.elementName;
+            elemBadge.style.backgroundColor = `${archon.primaryColor}22`;
+            elemBadge.style.color = archon.primaryColor;
+            elemBadge.style.borderColor = `${archon.primaryColor}66`;
+
+            document.getElementById('mHeader').style.borderColor = `${archon.primaryColor}33`;
+            document.getElementById('mName').innerText = archon.name;
+
+            const mTitle = document.getElementById('mTitle');
+            mTitle.innerText = `${archon.godTitle} • ${archon.nation}`;
+            mTitle.style.color = archon.primaryColor;
+
+            document.getElementById('mRank').innerText = archon.rank;
+
+            const histTitle = document.getElementById('mHistoryTitle');
+            histTitle.style.color = archon.primaryColor;
+            document.getElementById('mHistory').innerText = archon.history;
+
+            const achTitle = document.getElementById('mAchievementsTitle');
+            achTitle.style.color = archon.primaryColor;
+
+            const achList = document.getElementById('mAchievements');
+            achList.innerHTML = '';
+            archon.achievements.forEach(ach => {
+                const li = document.createElement('li');
+                li.innerText = ach;
+                achList.appendChild(li);
+            });
+
+            const quoteBox = document.getElementById('mQuoteBox');
+            quoteBox.style.borderColor = `${archon.primaryColor}44`;
+            quoteBox.style.backgroundColor = `${archon.primaryColor}11`;
+            document.getElementById('mQuote').innerText = `"${archon.quote}"`;
+
+            const modal = document.getElementById('archonModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('archonModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+        }
+
+        document.getElementById('archonModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize display
+        renderArchons(archons);
+    </script>
+</body>
+</html>
